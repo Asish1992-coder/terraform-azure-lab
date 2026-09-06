@@ -19,15 +19,17 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "lab"{
-    name = var.rg_name
-    location = var.location
-}
-resource "azurerm_storage_account" "lab" {
-  resource_group_name = azurerm_resource_group.lab.name
-  location = azurerm_resource_group.lab.location
-  name = var.storage_account_name
-  account_tier = "Standard"
-  account_replication_type = "LRS"
+module "storage_Account" {
+  source = "./module/storage_account"
+  rg_name = var.rg_name
+  location = var.location
+  storage_account_name = var.storage_account_name
   
+}
+
+module "storage_acct_us" {
+  source = "./module/storage_account"
+  rg_name = "rg-terraform-lab-eastus"
+  location = "East US"
+  storage_account_name = "sttflabeastus1992"
 }
