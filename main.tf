@@ -9,7 +9,6 @@ terraform {
     resource_group_name  = "rg-tfstate-backend"
     storage_account_name = "tsstatestorage1992"
     container_name       = "tfstate"
-    key                  = "dev.terraform.tfstate"
     use_azuread_auth     = true
   }
 }
@@ -21,13 +20,13 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "lab"{
-    name = "rg-terraform-lab-dev"
-    location = "Central India"
+    name = var.rg_name
+    location = var.location
 }
 resource "azurerm_storage_account" "lab" {
   resource_group_name = azurerm_resource_group.lab.name
   location = azurerm_resource_group.lab.location
-  name = "sttflabdev1992"
+  name = var.storage_account_name
   account_tier = "Standard"
   account_replication_type = "LRS"
   
