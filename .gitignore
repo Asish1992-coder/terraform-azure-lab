@@ -3,3 +3,5 @@
 *.tfvars
 !dev.tfvars
 !prod.tfvars
+!test.tfvars
+!uat.tfvars
